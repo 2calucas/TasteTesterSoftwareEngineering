@@ -15,5 +15,4 @@ def hello_world():
     return render_template('index.html', status='ok')
 
 if __name__ == '__main__':
-    # reloader_type is not a valid argument, so remove it
     app.run(debug=True, port=5000)
