@@ -1,7 +1,7 @@
 '''
 Created on 18/12/2025
 Author: Cal Lucas
-Version: 0.1
+Version: 0.3
 Description: A simple Flask application to run Taste Tracker website.
 '''
 
