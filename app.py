@@ -21,9 +21,6 @@ def login():
 def signup():
     return render_template('signup.html')
 
-@app.route('/maps')
-def maps():
-    return render_template('maps_page.html')
 
 @app.route('/lists')
 def lists():
