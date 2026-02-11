@@ -154,6 +154,20 @@ def manifest():
 def sw():
     return app.send_static_file('service-worker.js')
 
+@app.route('/lists')
+def lists():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    user = User.query.get(session['user_id'])
+
+    # Use nickname if set, otherwise username
+    display_name = user.nickname or user.username
+
+    # Get all reviews written by this user
+    user_reviews = Review.query.filter_by(username=display_name).all()
+
+    return render_template('lists.html', user=user, reviews=user_reviews)
 
 # -------------------------
 # RUN APP

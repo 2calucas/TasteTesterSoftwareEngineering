@@ -11,18 +11,16 @@
 
         <h1>{{ user.nickname or user.username }}'s Reviews</h1>
 
-        <button onclick="location.href='/dashboard'">Back to Dashboard</button>
+        <button onclick="location.href='/dashboard'">← Back to Dashboard</button>
 
         <hr>
 
         {% if reviews %}
             {% for review in reviews %}
-            <div class="review-card">
-                <h3>{{ review.title }} — {{ review.rating }}/10</h3>
-                <p>{{ review.content }}</p>
-            </div>
-
-
+                <div class="review-card">
+                    <h3>{{ review.title }} — {{ review.rating }}/10</h3>
+                    <p>{{ review.content }}</p>
+                </div>
             {% endfor %}
         {% else %}
             <p>You haven't written any reviews yet.</p>
