@@ -1,0 +1,53 @@
+body {
+    background-image: url('../img/restaurant-interior.jpg');
+    background-size: fill;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+}
+h1 {
+    font-size: 500;
+}
+p {
+    color: #ffffff;
+}
+
+.homepage-box {
+    width: 1000px;
+
+    backdrop-filter: blur(40px);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    z-index: 0;
+}
+.welcome {
+    width: 400px;
+    backdrop-filter: blur(40px);
+
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    z-index: 0;
+}
+
+button {
+    width: 100px;
+    padding: 6px 10px;
+    border: 1px solid black;
+    outline: none;
+    border-radius: 5px;
+    background: #5b5a5a;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background: #6f6e6e;
+}
+
+.count {
+    text-align: left;
+}

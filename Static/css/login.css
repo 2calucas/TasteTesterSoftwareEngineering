@@ -99,7 +99,14 @@ button {
     background: #fff;
     font-weight: bold;
     cursor: pointer;
+    
 }
+
+button:hover {
+    background: #6f6e6e;
+}
+
+button:-moz-ui-valid
 
 /* Register link */
 .login-register {
