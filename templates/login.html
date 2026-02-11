@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Load CSS from the Static folder -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
@@ -10,30 +9,35 @@
     <div class="login-box">
         <h2>Login</h2>
 
-        <div class="input-box">
-            <img src="{{ url_for('static', filename='img/email.png') }}" 
-                 alt="Email icon" width="20" height="20">
-            <input type="email" required>
-            <label>Email</label>
-        </div>
+        <!-- Add form tag -->
+        <form method="POST" action="/login">
 
-        <div class="input-box">
-            <img src="{{ url_for('static', filename='img/lock.png') }}" 
-                 alt="Password icon" width="20" height="20">
-            <input type="password" required>
-            <label>Password</label>
-        </div>
+            <div class="input-box">
+                <img src="{{ url_for('static', filename='img/email.png') }}" 
+                     alt="Email icon" width="20" height="20">
+                <input type="email" name="username" required>
+                <label>Email</label>
+            </div>
 
-        <div class="remember-forgot">
-            <label><input type="checkbox"> Remember me</label>
-            <a href="#">Forgot Password?</a>
-        </div>
+            <div class="input-box">
+                <img src="{{ url_for('static', filename='img/lock.png') }}" 
+                     alt="Password icon" width="20" height="20">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
 
-        <button type="submit">Login</button>
+            <div class="remember-forgot">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#">Forgot Password?</a>
+            </div>
 
-        <div class="login-register">
-            <p>Don't have an account? <a href="/signup">Register</a></p>
-        </div>
+            <button type="submit">Login</button>
+
+            <div class="login-register">
+                <p>Don't have an account? <a href="/signup">Register</a></p>
+            </div>
+
+        </form>
     </div>
 
 </body>

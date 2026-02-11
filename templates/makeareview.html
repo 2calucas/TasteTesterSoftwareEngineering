@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Write a Review</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/makeareview.css') }}">
+</head>
+
+<body>
+
+    <div class="review-box">
+
+        <h2>Write a Review</h2>
+
+        <form method="POST" action="/makeareview">
+
+            <div class="input-box">
+                <label for="title">Review Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="input-box">
+                <label for="content">Your Review</label>
+                <textarea id="content" name="content" rows="6" required></textarea>
+            </div>
+
+            <div class="input-box">
+                <label for="rating">Rating (0–10)</label>
+                <select id="rating" name="rating" required>
+                    {% for i in range(0, 11) %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">Submit Review</button>
+
+        </form>
+
+        <div class="back-link">
+            <a href="/dashboard">← Back to Dashboard</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

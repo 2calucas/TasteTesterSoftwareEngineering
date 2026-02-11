@@ -1,30 +1,83 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-    </head>
-    <body>
-        <div class="homepage-box">
-            <button onclick="location.href='/'">Home</button>
+<head>
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#ff6347">
+
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/static/service-worker.js");
+}
+</script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <title>Home</title>
+</head>
+<script>
+function updateUserCount() {
+    fetch('/user_count')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('live-user-count').textContent = data.count;
+        });
+}
+
+// Update every 5 seconds
+setInterval(updateUserCount, 5000);
+
+// Update immediately on page load
+updateUserCount();
+</script>
+
+<body>
+
+    <div class="homepage-box">
+
+        <!-- Navigation -->
+        <button onclick="location.href='/'">Home</button>
+        <p></p>
+
+        {% if session.get('user_id') %}
+            <button onclick="location.href='/dashboard'">Dashboard</button>
             <p></p>
+            <button onclick="location.href='/lists'">Reviews</button>
+            <p></p>
+            <button onclick="location.href='/logout'">Logout</button>
+        {% else %}
             <button onclick="location.href='/login'">Login</button>
             <p></p>
             <button onclick="location.href='/signup'">Sign-up</button>
+        {% endif %}
 
-            <div class="count">
-                <Label>User count</Label>
-            </div>
+        <!-- User count -->
+        <div class="count">
+            <label>This is how many people use Taste Tester: 
+                <span id="live-user-count">{{ user_count }}</span>
+            </label>
         </div>
-        <p></p>
-        <div class="welcome">
-            <p>Welcome to Taste Tester, a place of honesty for food kausines</p>
 
-            <h1>Get to know Taste Tester</h1>
-            <p>Taste Tester is a place where personal opinion is based beyond advertisement, be honest with the quality of food, drinks, or hospitality of the place you have been to, without your information or true name being criticised online</p>
+    </div>
 
-        </div>
-        
-        
+    <p></p>
 
-    </body>
+    <div class="welcome">
+
+        {% if session.get('username') %}
+            <h2>Welcome back, {{ session['username'] }}!</h2>
+        {% else %}
+            <h2>Welcome to Taste Tester</h2>
+        {% endif %}
+
+        <p>A place of honesty for food cuisines.</p>
+
+        <h1>Get to know Taste Tester</h1>
+        <p>
+            Taste Tester is a place where personal opinion is valued beyond advertisement.
+            Be honest about the quality of food, drinks, or hospitality of the places you visit,
+            without your identity being criticised online.
+        </p>
+
+    </div>
+
+</body>
 </html>

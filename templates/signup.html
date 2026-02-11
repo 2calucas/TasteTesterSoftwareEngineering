@@ -1,43 +1,57 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title></title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
-    </head>
-    <body>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+
+<body>
+
     <div class="signup-box">
         <h2>Signup</h2>
 
-        <div class="input-box">
-            <img src="" 
-                 alt="Email icon" width="20" height="20">
-            <input type="email" required>
-            <label>Email</label>
-        </div>
+        <!-- Form added -->
+        <form method="POST" action="/signup">
 
-        <div class="input-box">
-            <img src="" 
-                 alt="Password icon" width="20" height="20">
-            <input type="password" required>
-            <label>Password</label>
-        </div>
-        
-        <div class="input-box">
-            <img src="" 
-                 alt="Password icon" width="20" height="20">
-            <input type="password" required>
-            <label>Re-enter Password</label>
-        </div>
+            <div class="input-box">
+                <img src="{{ url_for('static', filename='img/email.png') }}" 
+                     alt="Email icon" width="20" height="20">
+                <input type="email" name="username" required>
+                <label>Email</label>
+            </div>
 
+            <div class="input-box">
+                <img src="{{ url_for('static', filename='img/lock.png') }}" 
+                     alt="Password icon" width="20" height="20">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
 
-        <button type="submit">Login</button>
+            <div class="input-box">
+                <img src="{{ url_for('static', filename='img/lock.png') }}" 
+                     alt="Password icon" width="20" height="20">
+                <input type="password" name="confirm_password" required>
+                <label>Re-enter Password</label>
+            </div>
 
+            <button type="submit">Create Account</button>
 
+        </form>
+        <script>
+            // Paste the JavaScript code here or link an external file
+            let position = 0;
+            const fullTitle = "Get your words out there!!! ";
+
+            function scrolltitle() {
+                document.title = fullTitle.substring(position, fullTitle.length) + fullTitle.substring(0, position);
+                position++;
+                if (position > fullTitle.length) position = 0;
+                window.setTimeout(scrolltitle, 170);
+            }
+
+            scrolltitle();
+        </script>
     </div>
 
-
-
-    </body>
-
+</body>
 </html>
