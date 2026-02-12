@@ -167,13 +167,21 @@ def lists():
     # Get all reviews written by this user
     user_reviews = Review.query.filter_by(username=display_name).all()
 
-    return render_template('lists.html', user=user, reviews=user_reviews)
+    # Get ALL reviews
+    all_reviews = Review.query.all()
 
-@app.route('/reviews')
-def reviews():
+    return render_template(
+        'lists.html',
+        user=user,
+        reviews=user_reviews,
+        all_reviews=all_reviews
+    )
+
+@app.route('/api/reviews')
+def api_reviews():
     search = request.args.get('search', '')
-    rating_filter = request.args.get('rating', '')
-    user_filter = request.args.get('user', '')
+    rating = request.args.get('rating', '')
+    user = request.args.get('user', '')
 
     query = Review.query
 
@@ -183,21 +191,23 @@ def reviews():
             (Review.content.ilike(f"%{search}%"))
         )
 
-    if rating_filter:
-        query = query.filter_by(rating=int(rating_filter))
+    if rating:
+        query = query.filter_by(rating=int(rating))
 
-    if user_filter:
-        query = query.filter(Review.username.ilike(f"%{user_filter}%"))
+    if user:
+        query = query.filter(Review.username.ilike(f"%{user}%"))
 
-    all_reviews = query.all()
+    results = [
+        {
+            "title": r.title,
+            "content": r.content,
+            "rating": r.rating,
+            "username": r.username
+        }
+        for r in query.all()
+    ]
 
-    return render_template(
-        'reviews.html',
-        reviews=all_reviews,
-        search=search,
-        rating_filter=rating_filter,
-        user_filter=user_filter
-    )
+    return {"reviews": results}
 
 
 # -------------------------

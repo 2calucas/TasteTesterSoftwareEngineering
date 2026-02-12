@@ -51,11 +51,61 @@
             </select>
 
             <input type="text" name="user" placeholder="Filter by user...">
-
-            <button type="submit">Apply</button>
         </form>
 
-        <button onclick="location.href='/reviews'">View All Reviews</button>
+        <hr>
+
+        <!-- ========================= -->
+        <!-- ALL REVIEWS SECTION -->
+        <!-- ========================= -->
+        <h2>All Reviews</h2>
+
+        <div id="all-reviews-box">
+            <script>
+                function updateAllReviews() {
+                    const search = document.querySelector("input[name='search']").value;
+                    const rating = document.querySelector("select[name='rating']").value;
+                    const user = document.querySelector("input[name='user']").value;
+
+                    const url = `/api/reviews?search=${encodeURIComponent(search)}&rating=${encodeURIComponent(rating)}&user=${encodeURIComponent(user)}`;
+
+                    fetch(url)
+                        .then(res => res.json())
+                        .then(data => {
+                            const box = document.getElementById("all-reviews-box");
+                            box.innerHTML = "";
+
+                            if (data.reviews.length === 0) {
+                                box.innerHTML = "<p>No reviews found.</p>";
+                                return;
+                            }
+
+                            data.reviews.forEach(r => {
+                                const card = document.createElement("div");
+                                card.className = "review-card";
+                                card.innerHTML = `
+                                    <h3>${r.title} — ${r.rating}/10</h3>
+                                    <p>${r.content}</p>
+                                    <p><em>— ${r.username}</em></p>
+                                `;
+                                box.appendChild(card);
+                            });
+                        });
+                }
+
+                // Trigger live updates
+                document.querySelector("input[name='search']").addEventListener("input", updateAllReviews);
+                document.querySelector("select[name='rating']").addEventListener("change", updateAllReviews);
+                document.querySelector("input[name='user']").addEventListener("input", updateAllReviews);
+
+                // Load all reviews on page load
+                updateAllReviews();
+            </script>
+
+        </div>
+
+
+
 
     </div>
 

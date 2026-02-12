@@ -14,20 +14,11 @@ if ("serviceWorker" in navigator) {
     <title>Home</title>
 </head>
 <script>
-function updateUserCount() {
-    fetch('/user_count')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('live-user-count').textContent = data.count;
-        });
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.js");
 }
-
-// Update every 5 seconds
-setInterval(updateUserCount, 5000);
-
-// Update immediately on page load
-updateUserCount();
 </script>
+
 
 <body>
 
