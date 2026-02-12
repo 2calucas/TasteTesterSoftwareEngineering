@@ -209,6 +209,26 @@ def api_reviews():
 
     return {"reviews": results}
 
+@app.route('/edit_review/<int:review_id>', methods=['GET', 'POST'])
+def edit_review(review_id):
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    review = Review.query.get_or_404(review_id)
+    user = User.query.get(session['user_id'])
+
+    # Only allow editing your own review
+    if review.username != (user.nickname or user.username):
+        return "You cannot edit someone else's review."
+
+    if request.method == 'POST':
+        review.title = request.form['title']
+        review.content = request.form['content']
+        review.rating = int(request.form['rating'])
+        db.session.commit()
+        return redirect(url_for('lists'))
+
+    return render_template('edit_review.html', review=review)
 
 # -------------------------
 # RUN APP

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Review</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/makeareview.css') }}">
+</head>
+
+<body>
+
+    <div class="review-box">
+
+        <h1>Edit Your Review</h1>
+
+        <form method="POST">
+
+            <label>Title</label>
+            <input type="text" name="title" value="{{ review.title }}" required>
+
+            <label>Rating (0–10)</label>
+            <input type="number" name="rating" min="0" max="10" value="{{ review.rating }}" required>
+
+            <label>Content</label>
+            <textarea name="content" required>{{ review.content }}</textarea>
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <button onclick="location.href='/lists'">Cancel</button>
+
+    </div>
+
+</body>
+</html>

@@ -18,3 +18,9 @@ self.addEventListener("fetch", event => {
         })
     );
 });
+
+card.innerHTML = `
+    <h3>${r.title} — ${r.rating}/10</h3>
+    <p>${r.content}</p>
+    <p><em>— ${r.username}</em></p>
+`;

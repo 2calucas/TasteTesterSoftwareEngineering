@@ -20,17 +20,17 @@
         <!-- YOUR REVIEWS SECTION -->
         <!-- ========================= -->
         <h2>Your Reviews</h2>
+        {% for review in reviews %}
+            <div class="review-card">
+                <h3>{{ review.title }} — {{ review.rating }}/10</h3>
+                <p>{{ review.content }}</p>
 
-        {% if reviews %}
-            {% for review in reviews %}
-                <div class="review-card">
-                    <h3>{{ review.title }} — {{ review.rating }}/10</h3>
-                    <p>{{ review.content }}</p>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>You haven't written any reviews yet.</p>
-        {% endif %}
+                <!-- Add this -->
+                <button onclick="location.href='/edit_review/{{ review.id }}'">
+                    Edit Review
+                </button>
+            </div>
+        {% endfor %}
 
         <hr>
 
