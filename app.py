@@ -169,6 +169,37 @@ def lists():
 
     return render_template('lists.html', user=user, reviews=user_reviews)
 
+@app.route('/reviews')
+def reviews():
+    search = request.args.get('search', '')
+    rating_filter = request.args.get('rating', '')
+    user_filter = request.args.get('user', '')
+
+    query = Review.query
+
+    if search:
+        query = query.filter(
+            (Review.title.ilike(f"%{search}%")) |
+            (Review.content.ilike(f"%{search}%"))
+        )
+
+    if rating_filter:
+        query = query.filter_by(rating=int(rating_filter))
+
+    if user_filter:
+        query = query.filter(Review.username.ilike(f"%{user_filter}%"))
+
+    all_reviews = query.all()
+
+    return render_template(
+        'reviews.html',
+        reviews=all_reviews,
+        search=search,
+        rating_filter=rating_filter,
+        user_filter=user_filter
+    )
+
+
 # -------------------------
 # RUN APP
 # -------------------------

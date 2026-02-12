@@ -11,9 +11,15 @@
 
         <h1>{{ user.nickname or user.username }}'s Reviews</h1>
 
+        <button onclick="location.href='/'">← Home</button>
         <button onclick="location.href='/dashboard'">← Back to Dashboard</button>
 
         <hr>
+
+        <!-- ========================= -->
+        <!-- YOUR REVIEWS SECTION -->
+        <!-- ========================= -->
+        <h2>Your Reviews</h2>
 
         {% if reviews %}
             {% for review in reviews %}
@@ -25,6 +31,31 @@
         {% else %}
             <p>You haven't written any reviews yet.</p>
         {% endif %}
+
+        <hr>
+
+        <!-- ========================= -->
+        <!-- SEARCH + FILTER SECTION -->
+        <!-- ========================= -->
+        <h2>Search & Filter All Reviews</h2>
+
+        <form method="GET" action="/reviews" class="filters">
+
+            <input type="text" name="search" placeholder="Search reviews...">
+
+            <select name="rating">
+                <option value="">Filter by Rating</option>
+                {% for i in range(0, 11) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="text" name="user" placeholder="Filter by user...">
+
+            <button type="submit">Apply</button>
+        </form>
+
+        <button onclick="location.href='/reviews'">View All Reviews</button>
 
     </div>
 
